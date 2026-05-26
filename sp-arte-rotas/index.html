@@ -1,0 +1,492 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>LIMA GALERIA · ArPa</title>
+  <meta name="description" content="Catálogo da participação da LIMA GALERIA na ArPa Feira de Arte." />
+
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;600;700&display=swap" rel="stylesheet" />
+
+  <style>
+    :root {
+      --bg: #0a0a0a;
+      --fg: #ffffff;
+      --muted: #ffffff;
+      --subtle: #ffffff;
+      --line: #3a3a3a;
+      --placeholder: #8a8a8a;
+      --error-bg: #2a0f0f;
+      --error-fg: #fca5a5;
+      --error-border: #dc2626;
+    }
+
+    * { box-sizing: border-box; margin: 0; padding: 0; font-family: 'Space Grotesk', sans-serif; }
+
+    html, body { height: 100%; }
+
+    body {
+      font-family: 'Space Grotesk', -apple-system, BlinkMacSystemFont, sans-serif;
+      font-weight: 400;
+      color: var(--fg);
+      background-color: var(--bg);
+      line-height: 1.6;
+      -webkit-font-smoothing: antialiased;
+      -moz-osx-font-smoothing: grayscale;
+      position: relative;
+      min-height: 100vh;
+    }
+
+    body::before {
+      content: '';
+      position: fixed;
+      inset: 0;
+      z-index: -1;
+      background-image:
+        linear-gradient(rgba(10, 10, 10, 0.55), rgba(10, 10, 10, 0.55)),
+        url('assets/background.jpg');
+      background-size: cover;
+      background-position: center;
+      background-repeat: no-repeat;
+      pointer-events: none;
+    }
+
+    /* ===== Header ===== */
+    header {
+      padding: 0 24px;
+      border-bottom: 1px solid var(--line);
+      text-align: center;
+    }
+
+    .brand-logo {
+      display: block;
+      height: 380px;
+      width: auto;
+      max-width: 640px;
+      margin: -40px auto 0;
+      object-fit: contain;
+      filter: invert(1);
+      mix-blend-mode: screen;
+    }
+
+    .header-galeria-logo {
+      display: block;
+      height: 150px;
+      width: auto;
+      max-width: 560px;
+      margin: -60px auto -30px;
+      object-fit: contain;
+      filter: invert(1);
+      mix-blend-mode: screen;
+    }
+
+    /* ===== Main / hero ===== */
+    main {
+      max-width: 560px;
+      margin: 0 auto;
+      padding: 40px 24px 40px;
+      text-align: center;
+    }
+
+    .signature-logo {
+      display: block;
+      max-width: 360px;
+      width: 100%;
+      height: auto;
+      margin: 72px auto 0;
+      filter: invert(1);
+      mix-blend-mode: screen;
+    }
+
+    .lead {
+      font-size: 17px;
+      color: var(--muted);
+      max-width: 460px;
+      margin: 0 auto 40px;
+      font-weight: 400;
+    }
+
+    /* ===== Form ===== */
+    form {
+      max-width: 420px;
+      margin: 0 auto;
+      text-align: left;
+    }
+
+    .field { margin-bottom: 22px; }
+
+    label {
+      display: block;
+      font-size: 11px;
+      font-weight: 500;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      color: var(--muted);
+      margin-bottom: 8px;
+    }
+
+    input {
+      width: 100%;
+      padding: 12px 0;
+      border: none;
+      border-bottom: 1px solid var(--line);
+      background: transparent;
+      font-size: 16px;
+      font-weight: 400;
+      color: var(--fg);
+      outline: none;
+      transition: border-color 0.2s ease;
+    }
+
+    input:focus { border-bottom-color: var(--fg); }
+    input::placeholder { color: var(--placeholder); font-weight: 400; }
+
+    .btn {
+      display: inline-block;
+      width: 100%;
+      padding: 16px 32px;
+      margin-top: 16px;
+      background: var(--fg);
+      color: var(--bg);
+      border: 1px solid var(--fg);
+      font-size: 12px;
+      font-weight: 500;
+      letter-spacing: 0.25em;
+      text-transform: uppercase;
+      cursor: pointer;
+      transition: all 0.2s ease;
+    }
+
+    .btn:hover:not(:disabled) {
+      background: transparent;
+      color: var(--fg);
+    }
+
+    .btn:disabled {
+      opacity: 0.5;
+      cursor: not-allowed;
+    }
+
+    .error-msg {
+      display: none;
+      margin-top: 16px;
+      padding: 12px;
+      background: var(--error-bg);
+      border-left: 2px solid var(--error-border);
+      color: var(--error-fg);
+      font-size: 14px;
+    }
+    .error-msg.show { display: block; }
+
+    .privacy {
+      margin-top: 24px;
+      text-align: center;
+      font-size: 12px;
+      color: var(--subtle);
+      letter-spacing: 0.02em;
+    }
+
+    /* ===== Catalog (revealed) ===== */
+    .catalog {
+      display: none;
+      animation: fadeIn 0.6s ease;
+    }
+    .catalog.show { display: block; }
+
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(10px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    .success-eyebrow {
+      font-size: 11px;
+      font-weight: 500;
+      letter-spacing: 0.3em;
+      text-transform: uppercase;
+      color: var(--muted);
+      margin-bottom: 24px;
+      text-align: center;
+    }
+
+    .catalog p {
+      text-align: center;
+      color: var(--muted);
+      margin-bottom: 40px;
+      max-width: 420px;
+      margin-left: auto;
+      margin-right: auto;
+    }
+
+    .fallback-note {
+      text-align: center;
+      font-size: 13px;
+      color: var(--subtle);
+      margin-top: 8px;
+    }
+    .fallback-note a {
+      color: var(--muted);
+      text-decoration: underline;
+      text-underline-offset: 3px;
+    }
+    .fallback-note a:hover { color: var(--fg); }
+
+    /* ===== Footer ===== */
+    .follow-cta {
+      text-align: center;
+      margin-top: -24px;
+      margin-bottom: 10px;
+      font-size: 14px;
+      letter-spacing: 0.04em;
+      color: var(--fg);
+    }
+    .follow-handle {
+      text-align: center;
+      font-size: 15px;
+    }
+    .follow-handle a {
+      color: var(--fg);
+      text-decoration: none;
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      border-bottom: 1px solid var(--line);
+      padding-bottom: 3px;
+      transition: border-color 0.2s ease;
+    }
+    .follow-handle a:hover { border-bottom-color: var(--fg); }
+
+    .ig-icon {
+      width: 18px;
+      height: 18px;
+      display: inline-block;
+      flex-shrink: 0;
+    }
+
+    footer {
+      margin-top: 80px;
+      padding: 32px 32px;
+      border-top: 1px solid var(--line);
+      text-align: center;
+      color: var(--fg);
+      font-size: 12px;
+      letter-spacing: 0.06em;
+    }
+
+    footer p { margin-bottom: 6px; }
+    footer p:last-child { margin-bottom: 0; }
+
+    .powered-by {
+      font-size: 11px;
+      letter-spacing: 0.08em;
+      opacity: 0.85;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+    }
+    .powered-by a {
+      display: inline-flex;
+      align-items: center;
+      line-height: 0;
+      transition: opacity 0.2s ease;
+    }
+    .powered-by a:hover { opacity: 0.7; }
+
+    .target-logo {
+      height: 14px;
+      width: auto;
+      display: block;
+    }
+
+    /* ===== Wider main when catalog visible ===== */
+    main.expanded { max-width: 960px; }
+
+    @media (max-width: 600px) {
+      main { padding: 24px 20px 32px; }
+      .lead { margin-bottom: 32px; }
+      .brand-logo { height: 240px; margin-top: -20px; }
+      .header-galeria-logo { height: 95px; margin: -40px auto -20px; }
+      .signature-logo { max-width: 260px; margin-top: 56px; }
+    }
+  </style>
+</head>
+<body>
+
+  <header>
+    <img src="assets/arpa.png" alt="ArPa · Feira de Arte" class="brand-logo" />
+    <img src="assets/lima-galeria.png" alt="Lima Galeria" class="header-galeria-logo" />
+  </header>
+
+  <main id="main">
+
+    <!-- ===== FORM STATE ===== -->
+    <section id="form-section">
+      <p class="lead">Preencha seus dados para acessar nosso catálogo completo.</p>
+
+      <form id="lead-form" novalidate>
+        <div class="field">
+          <label for="nome">Nome completo</label>
+          <input type="text" id="nome" name="nome" required autocomplete="name" placeholder="Seu nome" />
+        </div>
+
+        <div class="field">
+          <label for="email">E-mail</label>
+          <input type="email" id="email" name="email" required autocomplete="email" placeholder="voce@email.com" />
+        </div>
+
+        <div class="field">
+          <label for="telefone">Telefone</label>
+          <input type="tel" id="telefone" name="telefone" required autocomplete="tel" placeholder="(00) 00000-0000" maxlength="15" />
+        </div>
+
+        <button type="submit" class="btn" id="submit-btn">Acessar catálogo</button>
+
+        <div class="error-msg" id="error-msg"></div>
+
+        <p class="privacy">Seus dados serão usados apenas para contato sobre nossas exposições.</p>
+      </form>
+    </section>
+
+    <!-- ===== CATALOG STATE (hidden initially) ===== -->
+    <section class="catalog" id="catalog-section">
+      <div class="success-eyebrow">Obrigado · Acesso liberado</div>
+      <p>O catálogo foi aberto em uma nova aba. Boa visita.</p>
+
+      <p class="fallback-note">
+        Caso a nova aba não tenha aberto,
+        <a id="catalog-link"
+           href="https://drive.google.com/file/d/1VftVSNwt_XtWvMZiNXithDji6evkrojZ/view?usp=sharing"
+           target="_blank"
+           rel="noopener">clique aqui</a>.
+      </p>
+    </section>
+
+    <img src="assets/lima-galeria.png" alt="Lima Galeria" class="signature-logo" />
+
+    <p class="follow-cta">Siga-nos no Instagram</p>
+    <p class="follow-handle">
+      <a href="https://www.instagram.com/lima_galeria" target="_blank" rel="noopener" aria-label="Instagram da Lima Galeria">
+        <svg class="ig-icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+          <rect x="2" y="2" width="20" height="20" rx="5" ry="5"/>
+          <path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"/>
+          <line x1="17.5" y1="6.5" x2="17.51" y2="6.5"/>
+        </svg>
+        <span>@lima_galeria</span>
+      </a>
+    </p>
+
+  </main>
+
+  <footer>
+    <p>Lima Galeria — todos os direitos reservados</p>
+    <p class="powered-by">
+      <span>Powered by</span>
+      <a href="https://www.instagram.com/target_midia" target="_blank" rel="noopener" aria-label="Target">
+        <img src="assets/target-logo.png" alt="Target" class="target-logo" />
+      </a>
+    </p>
+  </footer>
+
+  <script>
+    // ====== CONFIG ======
+    const SHEETS_ENDPOINT = 'https://script.google.com/macros/s/AKfycbzqF_MAY5dSa_4i6OwdV6KqNZJAaLLY3HLTgbw535nhfbOQ6DzAEwSW9BJt-fe2grQABA/exec';
+    const CATALOG_URL = 'https://drive.google.com/file/d/1VftVSNwt_XtWvMZiNXithDji6evkrojZ/view?usp=sharing';
+
+    // ====== Helpers ======
+    const $ = (s) => document.querySelector(s);
+    const telInput = $('#telefone');
+    const form = $('#lead-form');
+    const submitBtn = $('#submit-btn');
+    const errorBox = $('#error-msg');
+
+    // Máscara BR para telefone
+    telInput.addEventListener('input', (e) => {
+      let v = e.target.value.replace(/\D/g, '').slice(0, 11);
+      if (v.length > 10) {
+        v = v.replace(/^(\d{2})(\d{5})(\d{0,4}).*/, '($1) $2-$3');
+      } else if (v.length > 6) {
+        v = v.replace(/^(\d{2})(\d{4})(\d{0,4}).*/, '($1) $2-$3');
+      } else if (v.length > 2) {
+        v = v.replace(/^(\d{2})(\d{0,5}).*/, '($1) $2');
+      } else if (v.length > 0) {
+        v = v.replace(/^(\d{0,2}).*/, '($1');
+      }
+      e.target.value = v;
+    });
+
+    function showError(msg) {
+      errorBox.textContent = msg;
+      errorBox.classList.add('show');
+    }
+    function clearError() {
+      errorBox.classList.remove('show');
+      errorBox.textContent = '';
+    }
+
+    function validate(data) {
+      if (!data.nome || data.nome.trim().length < 2) return 'Por favor, informe seu nome completo.';
+      if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(data.email)) return 'Por favor, informe um e-mail válido.';
+      const digits = data.telefone.replace(/\D/g, '');
+      if (digits.length < 10) return 'Por favor, informe um telefone válido com DDD.';
+      return null;
+    }
+
+    function revealCatalog() {
+      $('#form-section').style.display = 'none';
+      $('#catalog-section').classList.add('show');
+      $('#main').classList.add('expanded');
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+      try { localStorage.setItem('lima_galeria_unlocked', '1'); } catch (e) {}
+    }
+
+    try {
+      if (localStorage.getItem('lima_galeria_unlocked') === '1') {
+        revealCatalog();
+      }
+    } catch (e) {}
+
+    form.addEventListener('submit', async (e) => {
+      e.preventDefault();
+      clearError();
+
+      const data = {
+        nome: $('#nome').value.trim(),
+        email: $('#email').value.trim(),
+        telefone: telInput.value.trim(),
+        origem: 'ArPa',
+        timestamp: new Date().toISOString(),
+      };
+
+      const err = validate(data);
+      if (err) { showError(err); return; }
+
+      // Abre o catálogo IMEDIATAMENTE em nova aba — isso precisa acontecer de forma
+      // síncrona dentro do handler de submit para não ser bloqueado pelo popup blocker.
+      window.open(CATALOG_URL, '_blank', 'noopener');
+
+      submitBtn.disabled = true;
+      submitBtn.textContent = 'Enviando...';
+
+      try {
+        if (SHEETS_ENDPOINT && !SHEETS_ENDPOINT.startsWith('COLE_AQUI')) {
+          await fetch(SHEETS_ENDPOINT, {
+            method: 'POST',
+            mode: 'no-cors',
+            headers: { 'Content-Type': 'text/plain;charset=utf-8' },
+            body: JSON.stringify(data),
+          });
+        } else {
+          console.warn('SHEETS_ENDPOINT não configurado — dados:', data);
+        }
+      } catch (err) {
+        console.error(err);
+      }
+
+      revealCatalog();
+    });
+  </script>
+
+</body>
+</html>
